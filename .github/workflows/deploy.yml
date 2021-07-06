@@ -10,8 +10,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install npm dependencies
         run: |
-          apt install tree
-          tree
           npm ci
           # npm test
   build-android:
@@ -25,9 +23,7 @@ jobs:
       - name: Build Android Release
         run: |
           cd android && ./gradlew assembleRelease
-          apt install tree
-          cd app
-          tree
+          cd app && ls
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
@@ -40,8 +36,6 @@ jobs:
       - name: "Release"
         run: |
           echo "Release!"
-          cd android/app
-          ls
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
