@@ -12,6 +12,7 @@ jobs:
         run: |
           npm ci
           # npm test
+          
   build-android:
     needs: install-and-test
     runs-on: ubuntu-latest
@@ -20,18 +21,17 @@ jobs:
       - name: Install npm dependencies
         run: |
           npm ci
+          
       - name: Build Android Release
         run: |
           cd android && ./gradlew assembleRelease
+          
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
           name: app-release.apk
-          path: '~/android/app/build/outputs/apk/release/app-release.apk'
-  release-android:
-    needs: build-android
-    runs-on: ubuntu-latest
-    steps:
+          path: android/app/build/outputs/apk/release/app-release.apk
+          
       - name: Commit app-release.apk
         run: |
           echo "racine"
@@ -44,11 +44,17 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add app-release.apk
           git commit -m "update app-release.apk"
-      - name: Push to Develop 👉🏼
+          
+      - name: Push to main 👉🏼
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
+          
+  release-android:
+    needs: build-android
+    runs-on: ubuntu-latest
+    steps:
       - name: "Release"
         run: |
           echo "Release!"
