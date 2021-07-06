@@ -22,32 +22,11 @@ jobs:
         run: |
           npm ci
           
-      - name: Build Android Release
+      - name: Build
         run: |
           cd android && ./gradlew assembleRelease
           
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: app-release.apk
-          path: android/app/build/outputs/apk/release/app-release.apk
-          
-      - name: Commit app-release.apk
-        run: |
-          rm app-release.apk
-          mv ./android/app/build/outputs/apk/release/app-release.apk .
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add app-release.apk
-          git commit -m "update app-release.apk"
-          
-      - name: Push to main 👉🏼
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
-          
-      - name: "Release"
+      - name: Release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
