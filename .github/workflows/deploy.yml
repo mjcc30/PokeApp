@@ -27,14 +27,12 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app-release.apk
-          path: android/app/build/outputs/apk/release
+          path: '~/android/app/build/outputs/apk/release/*'
   release-androisd:
     needs: build-android
     runs-on: ubuntu-latest
     steps: 
       - name: "Release"
-        run: |
-          echo "Release!"
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -42,5 +40,5 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-           app/build/outputs/apk/release/app-release.apk
+           android/app/build/outputs/apk/release/app-release.apk
 
