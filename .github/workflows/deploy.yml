@@ -34,6 +34,7 @@ jobs:
           
       - name: Commit app-release.apk
         run: |
+          rm app-release.apk
           mv ./android/app/build/outputs/apk/release/app-release.apk .
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
@@ -46,20 +47,12 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
           
-  release-android:
-    needs: build-android
-    runs-on: ubuntu-latest
-    steps:
       - name: "Release"
-        run: |
-          echo "Release!"
-          ls
-      - uses: "marvinpinto/action-automatic-releases@latest"
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: true
           title: "Development Build"
-          files: |
-           app-release.apk
+          files: android/app/build/outputs/apk/release/app-release.apk
 
