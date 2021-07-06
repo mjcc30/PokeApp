@@ -23,7 +23,10 @@ jobs:
         run: npm ci
           
       - name: Build
-        run: cd android && ./gradlew assembleRelease
+        run: |
+         cd android && ./gradlew assembleRelease
+         cd app/build/outputs/apk/release
+         mv app-release.apk pokeApp.apk
           
       - name: Release
         uses: "marvinpinto/action-automatic-releases@latest"
@@ -32,5 +35,5 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: true
           title: "Development Build"
-          files: android/app/build/outputs/apk/release/app-release.apk
+          files: android/app/build/outputs/apk/release/pokeApp.apk
 
