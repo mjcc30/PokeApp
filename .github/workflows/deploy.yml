@@ -23,12 +23,12 @@ jobs:
       - name: Build Android Release
         run: |
           cd android && ./gradlew assembleRelease
-          cd app/build && ls
+          cd app/build/outputs && ls
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
-          name: pokeApp.apk
-          path: android/app/build/outputs/apk/release/
+          name: app-release.apk
+          path: android/app/build/outputs/apk/
   release-androisd:
     needs: build-android
     runs-on: ubuntu-latest
@@ -43,5 +43,5 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-           android/app/build/outputs/apk/release/*.apk
+           android/app/build/outputs/apk/app-release.apk
 
