@@ -34,11 +34,6 @@ jobs:
           
       - name: Commit app-release.apk
         run: |
-          echo "racine"
-          ls
-          echo "release folder"
-          ls ./android/app/build/outputs/apk/release
-          echo "mv"
           mv ./android/app/build/outputs/apk/release/app-release.apk .
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
@@ -58,6 +53,7 @@ jobs:
       - name: "Release"
         run: |
           echo "Release!"
+          ls
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
