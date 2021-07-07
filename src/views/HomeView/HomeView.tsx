@@ -27,7 +27,7 @@ const HomeView = (props: any) => {
   const [isDataReceived, setIsDataReceived] = useState(false);
 
 
-  const onCapturePokemon = () => {
+    const onCapturePokemon = () => {
       const currentPokemon = listPoke[counterPokedex];
 
       console.log('Array Pokemon Captured: ', props.arrayPokemonCaptured)
@@ -48,7 +48,7 @@ const HomeView = (props: any) => {
       src: srcPokemon,
       isReleasePossible: false
     });
-  }
+  };
 
   const modifyLevel = () => {
 
